@@ -1,0 +1,11 @@
+<h1>Add Product</h1>
+
+<%= form_with(model: @product, url: products_path) do |form| %>
+  <%= form.text_field :url, placeholder: "Product URL" %>
+  <%= form.text_field :hash_md5, placeholder: "Hash MD5" %>
+  <%= form.text_field :product_updated_at, placeholder: "Product Updated At" %>
+  <%= form.number_field :sales, placeholder: "Sales" %>
+  <%= form.text_field :price, placeholder: "Price" %>
+  
+  <%= form.submit "Add Product" %>
+<% end %>

@@ -1,65 +1,34 @@
 
+
 <div class="d-flex justify-content-center">
 <h1> Sign Up</h1>
 </div>
 
 
-<%= form_with model: @user, url: sign_up_path do |form| %>
-
-  <% if @user.errors.any? %>  
+<%= form_with model: @user, url: sign_up_path, local: true, data: { turbo:false } do |form| %>
+  <% if form.object.errors.any? %>  
     <div class="alert alert-danger">
-      <% @user.errors.full_messages.each do |message| %>
+      <% form.object.errors.full_messages.each do |message| %>
         <div><%= message %></div>
-      <% end %>
+      <% end %>     
     </div>    
   <% end %>
 
-<div class="mb-3">
-<%= form.label :email %>
-  <%= form.text_field :email, class:"form-control", placeholder: "email@email.com" %>
+  <div class="mb-3">
+    <%= form.label :email %>
+    <%= form.text_field :email, class:"form-control", placeholder: "email@email.com" %>
   </div>
   <div class="mb-3">
-  <%= form.label :password %>
-  <%= form.password_field :password, class:"form-control", placeholder: "password" %>
+    <%= form.label :password %>
+    <%= form.password_field :password, class:"form-control", placeholder: "password" %>
   </div>
   <div class="mb-3">
-    <%= form.label :password_Confirmation %>
-  <%= form.password_field :password_confirmation, class:"form-control", placeholder: "password confirmation" %>
+    <%= form.label :password_confirmation %>
+    <%= form.password_field :password_confirmation, class:"form-control", placeholder: "password" %>
   </div>
+  
   <div class="mb-3">
-  <%= form.submit "Sign up" %>
+  <%= form.submit "Sign up", class: "btn btn-primary" %>
   </div>
   
 <%end%>
-
-<%# <style>
-form {
-  max-width: 400px; /* Adjust the max-width to your preference */
-  margin: 0 auto; /* Center the form horizontally */
-}
-
-label {
-  display: block; /* Make the labels take a whole line */
-  margin-bottom: 5px; /* Add some space between labels and inputs */
-}
-
-input[type="text"],
-input[type="email"],
-textarea {
-  width: 100%; /* Make the inputs and textarea span the full width of their container */
-  padding: 8px; /* Adjust the padding to your preference */
-  border: 1px solid #ccc; /* Add a border to the inputs */
-  border-radius: 4px; /* Round the input corners */
-  box-sizing: border-box; /* Include padding and border in the total width */
-  margin-bottom: 10px; /* Add some space between inputs */
-}
-
-input[type="submit"] {
-  background-color: #4CAF50; /* Set a background color for the submit button */
-  color: white; /* Set the text color to white */
-  padding: 10px 20px; /* Adjust the padding to your preference */
-  border: none; /* Remove the border */
-  border-radius: 4px; /* Round the button corners */
-  cursor: pointer; /* Show a pointer cursor on hover */
-}
-</style> %>

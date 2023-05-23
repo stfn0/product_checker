@@ -1,0 +1,24 @@
+<h1>User Details</h1>
+
+<!-- Display user details here -->
+
+<h2>Products</h2>
+<% if @user.products.any? %>
+  <ul>
+    <% @user.products.each do |product| %>
+      <li><%= product.url %></li>
+      <!-- Display other product details here -->
+    <% end %>
+  </ul>
+<% else %>
+  <p>No products added yet.</p>
+<% end %>
+
+<h2>Add Product</h2>
+<%= form_with(model: @product, url: products_path) do |form| %>
+  <%= form.text_field :url, placeholder: "Product URL" %>
+  <%= form.number_field :sales, placeholder: "Sales" %>
+  <%= form.text_field :price, #{:sales * :price}, placeholder: "Vendas" %>
+     
+  <%= form.submit "Add Product" %>
+<% end %>

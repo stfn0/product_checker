@@ -8,8 +8,9 @@ class User
   field :password_digest
 
   
-  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "The email must be a valid"}
-  validates :password, presence: true, length: { minimum: 6 }
-  
+  validates :email, presence: true, format: { with: /\A[^@\s]+@[^@\s]+\z/, message: "The email must be a valid"}, uniqueness: true
+  validates :password, length: {minimum: 6}, allow_blank: true
+  validates :password_confirmation, presence: true
+
   has_many :products
 end
