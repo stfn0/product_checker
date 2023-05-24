@@ -28,31 +28,17 @@ Rails.application.routes.draw do
   get "password/reset", to: "password_resets#new"  
   post "password/reset", to: "password_resets#create"
   
+  #Reset password deprecated
   get "password/reset/edit", to: "password_resets#new"  
   patch "password/reset/edit", to: "password_resets#create"
   
   #Dashboard
-  # get 'dashboard', to: 'dashboard#new'
-  # post 'dashboard', to: 'dashboard#create'  
-
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   post '/dashboard/add_product', to: 'dashboard#add_product', as: 'add_product'
   
+#Sidekiq
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 
 end
-
-
-
-  
-  
-  # get 'product/index' 
-  # get 'product/show'
-
-  # get 'product/new'
-  # get 'product/create'
-
-
-  # get 'product/edit'
-  # get 'product/update'
-
-  # get 'product/destroy'

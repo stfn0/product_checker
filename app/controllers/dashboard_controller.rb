@@ -4,6 +4,7 @@ require 'net/http'
 
 class DashboardController < ApplicationController
   include ProductHelper 
+  before_action :require_user_logged_in
 
   def add_product
     url = params[:url]
@@ -26,7 +27,8 @@ class DashboardController < ApplicationController
     if(response && is_response_valid(response))
       product = create_product(url)      
       Current.user.products << product 
-      redirect_to dashboard_path, notice: "Product added successfully."   
+      redirect_to dashboard_path, notice: "Product added successfully." 
+      UpdateProductWorker.perform_async(product.id.to_s)
     else
       redirect_to dashboard_path, alert: "Couldn't add the product, check your URL."
     end       

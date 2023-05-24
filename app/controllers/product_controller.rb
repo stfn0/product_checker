@@ -3,7 +3,6 @@ class ProductController < ApplicationController
   
   
   def create_
-    puts "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
     product = create_product(params[:url])
     product.save()
   end

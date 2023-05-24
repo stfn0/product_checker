@@ -5,7 +5,7 @@
 </div>
 
 
-<%= form_with model: @user, url: sign_up_path, local: true, data: { turbo:false } do |form| %>
+<%= form_with model: @user, url: sign_up_path, local: true, data: { turbo:false }, class: "form-center"   do |form| %>
   <% if form.object.errors.any? %>  
     <div class="alert alert-danger">
       <% form.object.errors.full_messages.each do |message| %>
@@ -13,22 +13,33 @@
       <% end %>     
     </div>    
   <% end %>
-
-  <div class="mb-3">
-    <%= form.label :email %>
-    <%= form.text_field :email, class:"form-control", placeholder: "email@email.com" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :password %>
-    <%= form.password_field :password, class:"form-control", placeholder: "password" %>
-  </div>
-  <div class="mb-3">
-    <%= form.label :password_confirmation %>
-    <%= form.password_field :password_confirmation, class:"form-control", placeholder: "password" %>
-  </div>
+  
+    <div class="w-25 justify-content-center">
+      <div class="mb-3">
+        <%= form.label :email %>
+        <%= form.text_field :email, class:"form-control", placeholder: "email@email.com" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :password %>
+        <%= form.password_field :password, class:"form-control", placeholder: "password" %>
+      </div>
+      <div class="mb-3">
+        <%= form.label :password_confirmation %>
+        <%= form.password_field :password_confirmation, class:"form-control", placeholder: "password" %>
+      </div>
+    </div>
   
   <div class="mb-3">
   <%= form.submit "Sign up", class: "btn btn-primary" %>
   </div>
   
-<%end%>
+<% end %>
+
+
+<style>
+  .form-center{
+    display:flex;   
+    flex-direction:column;  
+    align-items: center;
+  }
+  </style>

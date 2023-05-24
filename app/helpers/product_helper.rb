@@ -31,26 +31,10 @@ module ProductHelper
   
   def json_to_md5(product_new_json) 
     #turning into md5 hash
-  json_hash = JSON.parse(product_new_json).to_s
-  md5_hash = Digest::MD5.hexdigest(json_hash)
+    json_hash = JSON.parse(product_new_json).to_s
+    md5_hash = Digest::MD5.hexdigest(json_hash)
   end
-  
-  
-  #######################################################
-  
-  #Preciso guardar em um objeto(hash em rubi) as infos de um product
-  
-  # product = {id: "", url: "", hash_md5: "", updated_at: "", sales: "", price: ""}
-  
-  # Popular o product com as informações
-  
-  # product[:id]
-  # product[:url] = "https://www.puravidabracelets.com/products/carbon-offset-for-shipping.json"
-  # product[:hash_md5] = "0"
-  # product[:updated_at] = "0"
-  # product[:sales] = ""
-  # product[:price] = ""
-     
+       
   #Add product 
   def create_product(url)
     #turn the url json into a ruby hash
@@ -72,13 +56,14 @@ module ProductHelper
       title: title,
     )
   end
+end
     
-  # def update_product(db_product, url )
-  #   url_product = create_product(url);
+  # def update_product(dbproduct, url)
+  #    url_product = create_product(url);
     
-  #   # if ((db_product[:updated_at] == url_product[:updated_at]) && (db_product[:hash_md5] == url_product[:hash_md5])) {
-  #   #   return
-  #   # }  
+  #   if ((db_product[:updated_at] == url_product[:updated_at]) && (db_product[:hash_md5] == url_product[:hash_md5])) {
+  #     return
+  #   }  
   
   #   if ((db_product[:updated_at] != url_product[:updated_at]) && (db_product[:hash_md5] == url_product[:hash_md5])) {      
   #     url_product[:sales] = db_product[:sales];
@@ -88,7 +73,6 @@ module ProductHelper
   #   db_product = url_product;
   #   db_product.update()
   # end
-  
-  
+  #end
 
-end
+

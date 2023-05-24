@@ -5,6 +5,8 @@ ruby '2.7.8'
 
 #MongoDB
 gem 'mongoid', '~> 7.0.5'
+#Sidekiq
+gem 'sidekiq'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'

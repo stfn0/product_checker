@@ -12,6 +12,6 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:url, :hash_md5, :product_updated_at, :sales, :price)
+    params.require(:product).permit(:url, :hash_md5, :product_updated_at, :sales, :price, :image_path, :title)
   end
 end
