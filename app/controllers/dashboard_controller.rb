@@ -3,18 +3,16 @@ require 'uri'
 require 'net/http'
 
 class DashboardController < ApplicationController
-  include ProductHelper 
+  include ProductHelper
   before_action :require_user_logged_in
 
   def add_product
-    url = params[:url]
-
-    #has_product pra não adicionar o msm URL caso já exista
+    url = params[:url]   
     has_product = Current.user.products.where(url: params[:url]).first
 
     if !(has_product.nil?)
       redirect_to dashboard_path, alert: "You already have the URL added." 
-      return     
+      return
     end
 
     if !(is_valid_url(url))
@@ -25,19 +23,14 @@ class DashboardController < ApplicationController
     response = get_url_data(url)
 
     if(response && is_response_valid(response))
-      product = create_product(url) 
-      #tem que inciar antes do novo produto entrar no banco, senão nunca entraria aqui
+      product = create_product(url)
  
       if !(Product.where(url: params[:url]).exists?)
         puts "@@@@@@@@@@@@@@@@@@@@@@!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
         UpdateProductWorker.perform_async(product.id.to_s)
       end
-      Current.user.products << product
-       
-      redirect_to dashboard_path, notice: "Product added successfully." 
-
-      #if URL already in DB, dont exec
-      
+      Current.user.products << product       
+      redirect_to dashboard_path, notice: "Product added successfully."      
     else
       redirect_to dashboard_path, alert: "Couldn't add the product, check your URL."
     end       

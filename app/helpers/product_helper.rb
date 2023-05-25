@@ -57,22 +57,3 @@ module ProductHelper
     )
   end
 end
-    
-  # def update_product(dbproduct, url)
-  #    url_product = create_product(url);
-    
-  #   if ((db_product[:updated_at] == url_product[:updated_at]) && (db_product[:hash_md5] == url_product[:hash_md5])) {
-  #     return
-  #   }  
-  
-  #   if ((db_product[:updated_at] != url_product[:updated_at]) && (db_product[:hash_md5] == url_product[:hash_md5])) {      
-  #     url_product[:sales] = db_product[:sales];
-  #     url_product[:sales] += 1
-  #   } 
-  
-  #   db_product = url_product;
-  #   db_product.update()
-  # end
-  #end
-
-

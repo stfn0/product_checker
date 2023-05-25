@@ -8,7 +8,7 @@
   <div>
     <%= form.text_field :url, placeholder: 'Enter product URL' , class:"form-control mb-3" %>
       <%= form.submit 'Add Product' , class: "btn btn-primary mb-3" %>
-  </div>
+  </div>      
   <% end %>
     <div class="container p-0">
       <div class="card-container">
@@ -17,7 +17,7 @@
             <div class="card card-centered-info">
               <% if product.image_path.present? %>
                 <div class="card-centered-info image-container">
-                  <%= image_tag product.image_path, size: "250x250" %>
+                  <%= image_tag product.image_path, style: "border-radius: 10px; border-color: coral; border: 8px;", size: "250x250" %>
                     <% end %>
                 </div>
                 <div class="card-centered-info">
@@ -37,24 +37,20 @@
               aria-labelledby="productModalLabel<%= product.id %>" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="productModalLabel<%= product.id %>">Product Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                  <div class="modal-header d-flex justify-content-center">
+                    <h5 class="modal-title" id="productModalLabel<%= product.id %>"><%= product.title %></h5>
                   </div>
-                  <div class="modal-body">
-                    <!-- Add product details here -->
-                    <p>Title: <%= product.title %>
+                  <div class="modal-body"> 
+                    <p>Sales: <%= product.sales %>
+                    </p>
                     </p>
                     <p>Price: <%= product.price %>
                     </p>
-                    <p>Faturamento: R$ <%= number_with_precision((product.sales.to_f * product.price.to_f), precision: 2, separator: ',', delimiter: '.') %>
-                    </p>
-                    <!-- Add more details as needed -->
+                    <p>Revenue: R$ <%= number_with_precision((product.sales.to_f * product.price.to_f), precision: 2, separator: ',', delimiter: '.') %>
+                    </p>                   
                   </div>
                   <div class="modal-footer">
-                    <button id="close_modal" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button id="close_modal" type="button" class="btn btn-primary close-button" data-dismiss="modal">Close</button>
                   </div>
                 </div>
               </div>
@@ -80,6 +76,7 @@
     </script>
 
     <style>
+
       .card-centered-info {
         display: flex;
         justify-content: center;
@@ -99,22 +96,13 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-
       .image-container {
         max-width: 100%;
-        /* Ensure the image fits within the container */
         height: auto;
-        /* Maintain aspect ratio */
-        /* Additional styles for the image container */
-        /* ... */
       }
 
       .image-container img {
         max-width: 100%;
-        /* Ensure the image fits within the container */
         height: auto;
-        /* Maintain aspect ratio */
-        /* Additional styles for the image itself */
-        /* ... */
       }
     </style>

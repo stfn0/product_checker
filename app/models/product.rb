@@ -9,9 +9,6 @@ class Product
   field :image_path, type: String
   field :title, type: String
 
-  #validates :url, uniqueness: true
-
   belongs_to :user
-  #, class_name: "::Models::User", inverse_of: :product
 
 end
