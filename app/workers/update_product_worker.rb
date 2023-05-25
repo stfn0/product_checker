@@ -18,14 +18,9 @@ class UpdateProductWorker
     #
     # Rodo um update em todos os produtos que compartilham da mesma URL
     # UpdateDB: Product.where(url: url).set(product_updated_at: new_updated_at, hash_md5: new_hash_md5, sales: new_sales)
-
-        
-
-    update_happened = true
-    productDB = Product.find(id)
     
-    puts "--!!!--#{productDB.product_updated_at}--!!!!---"
-    puts "--!!!--#{productDB.hash_md5}--!!!!---"  
+    update_happened = true
+    productDB = Product.find(id)    
 
     updated_product = create_product(productDB.url.to_s) 
 
@@ -36,8 +31,8 @@ class UpdateProductWorker
     
     if ((productDB[:product_updated_at] != updated_product[:product_updated_at]) && (productDB[:hash_md5] == updated_product[:hash_md5]))      
       updated_product[:sales] = productDB[:sales];
-      updated_product[:sales] += 1  
-      puts "----- Vendeu!!! #{productDB.title}---------------"    
+      updated_product[:sales] += 1    
+      puts "Vendeu!!! #{productDB.title}"    
     end
 
     if(update_happened)
@@ -47,18 +42,39 @@ class UpdateProductWorker
       puts "--------------------------------------------------------------------------"
       #productDB = updated_product;
       #productDB.update_attributes(updated_product.attributes)
-      obj_write_result = productDB.update(
-        url: updated_product[:url],
+      # obj_write_result = productDB.update(
+      #   url: updated_product[:url],
+      #   hash_md5: updated_product[:hash_md5],
+      #   product_updated_at: updated_product[:product_updated_at],       
+      #   sales: updated_product[:sales], 
+      #   price: updated_product[:price],
+      #   image_path: updated_product[:image_path],
+      #   title: updated_product[:title], 
+      # )
+
+      # productList = Product.where(url: updated_product[:url]).set(url: updated_product[:url],
+      #   hash_md5: updated_product[:hash_md5],
+      #   product_updated_at: updated_product[:product_updated_at],       
+      #   sales: 0,
+      #   price: updated_product[:price],
+      #   image_path: updated_product[:image_path],
+      #   title: updated_product[:title]
+      # )
+
+      Product.where(url: updated_product[:url]).update_all({
+      "$set" => {
         hash_md5: updated_product[:hash_md5],
-        product_updated_at: updated_product[:product_updated_at],       
-        sales: updated_product[:sales], 
+        product_updated_at: updated_product[:product_updated_at],
         price: updated_product[:price],
         image_path: updated_product[:image_path],
-        title: updated_product[:title], 
-      )
+        title: updated_product[:title]
+      },
+      "$inc" => {
+        sales: 1
+      }
+    })
 
-      puts "--Update: #{productDB.title}---------------"
-      puts "--Update: #{obj_write_result}---------------"
+      puts "--Update: #{productDB.title}---------------"      
 
      end
     

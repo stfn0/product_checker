@@ -25,10 +25,19 @@ class DashboardController < ApplicationController
     response = get_url_data(url)
 
     if(response && is_response_valid(response))
-      product = create_product(url)      
-      Current.user.products << product 
+      product = create_product(url) 
+      #tem que inciar antes do novo produto entrar no banco, senão nunca entraria aqui
+ 
+      if !(Product.where(url: params[:url]).exists?)
+        puts "@@@@@@@@@@@@@@@@@@@@@@!!!@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+        UpdateProductWorker.perform_async(product.id.to_s)
+      end
+      Current.user.products << product
+       
       redirect_to dashboard_path, notice: "Product added successfully." 
-      UpdateProductWorker.perform_async(product.id.to_s)
+
+      #if URL already in DB, dont exec
+      
     else
       redirect_to dashboard_path, alert: "Couldn't add the product, check your URL."
     end       
